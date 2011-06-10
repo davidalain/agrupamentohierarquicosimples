@@ -1,5 +1,7 @@
 package br.com.ecomp.md;
 
+import util.Util;
+
 public class Amostra {
 	
 	public int id;
@@ -10,6 +12,10 @@ public class Amostra {
 		this.dados = dados;
 	}
 	
+	public Amostra(int id, String dados){
+		this.id = id;
+		this.dados = Util.converterDados(dados);
+	}
 	
 
 }
