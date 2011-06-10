@@ -2,7 +2,6 @@ package br.com.ecomp.md;
 
 public class Agrupamento {
 	
-
 	private double distanciaEuclidiana(Amostra a1, Amostra a2){
 		
 		double dist = 0.0;
