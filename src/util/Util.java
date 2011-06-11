@@ -11,7 +11,7 @@ public class Util {
 		String[] valores = dados.split(" ");
 		List<Double> listaValoresDouble = new LinkedList<Double>();
 		for(int i = 0 ; i < valores.length ; ++i){
-			if(!valores[i].equals(" ")){
+			if(!valores[i].equals("")){
 				listaValoresDouble.add(Double.parseDouble(valores[i]));
 			}
 		}
