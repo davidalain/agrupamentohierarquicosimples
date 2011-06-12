@@ -1,5 +1,11 @@
 package br.com.ecomp.md;
 
+/**
+ * Realiza agrupamento amostras de séries temporais em clusters.
+ * 
+ * @author David Alain
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -10,10 +16,10 @@ import java.util.List;
 public class Agrupamento {
 
 	/**
-	 * Calcula a distancia euclidiana entre duas amostras de séries temporais
-	 * @param a1
-	 * @param a2
-	 * @return
+	 * Calcula a distância euclidiana entre duas amostras de séries temporais
+	 * @param a1 amostra1
+	 * @param a2 amostra2
+	 * @return Distância euclidiana entre a1 e a2
 	 */
 	private double distanciaEuclidiana(Amostra a1, Amostra a2){
 
@@ -50,6 +56,13 @@ public class Agrupamento {
 		return dist;
 	}
 
+	/**
+	 * Recebe um array de clusters de dimensão N e retorna um array de cluster de dimensão (N-1).
+	 * Agrupa os dois clusters mais proximos em um só e retorna um array com esse novo cluster e todos os outros mais distantes.  
+	 * @param id Identificação do novo cluster
+	 * @param clusters
+	 * @return Array de Cluster 
+	 */
 	public Cluster[] agruparClusterMaisProximo(int id, Cluster[] clusters){
 
 		Cluster[] resultado = new Cluster[clusters.length - 1];
@@ -86,6 +99,11 @@ public class Agrupamento {
 		return resultado;
 	}
 
+	/**
+	 * Recebe um array de amostras de séries temporais agrupa todas em um único Cluster.
+	 * @param amostras Amostras de séries temporais
+	 * @return cluster que agrupa todas as séries
+	 */
 	public Cluster agrupar(Amostra[] amostras){
 
 		Cluster[] clustersIniciais = new Cluster[amostras.length];
@@ -103,6 +121,12 @@ public class Agrupamento {
 		return clustersMaisProximos[0];
 	}
 	
+	/**
+	 * Recebe um array de amostras de séries temporais agrupa todas em N Clusters.
+	 * @param amostras Amostras de séries temporais
+	 * @param quantidadeClusters Quantidade de Cluster que serão criados
+	 * @return cluster que agrupa todas as séries
+	 */
 	public Cluster[] agrupar(Amostra[] amostras, int quantidadeClusters){
 
 		Cluster[] clustersIniciais = new Cluster[amostras.length];
@@ -147,7 +171,7 @@ public class Agrupamento {
 		Agrupamento ag = new Agrupamento();
 		Cluster mestre = ag.agrupar(amostras);
 
-		System.out.println("fim");
+		System.out.println("fim "+ mestre.id);
 
 	}
 

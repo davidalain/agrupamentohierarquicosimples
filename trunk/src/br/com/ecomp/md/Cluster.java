@@ -1,5 +1,11 @@
 package br.com.ecomp.md;
 
+/**
+ * Clusters de séries temporais
+ * 
+ * @author David Alain
+ */
+
 public class Cluster {
 	
 	public int id;
@@ -9,10 +15,19 @@ public class Cluster {
 	public Cluster cluster2;
 	public double distancia;
 	
+	/**
+	 * Verifica se é um cluster simples, ou seja, possui apenas uma série temporal, ou é um cluster que agrupa mais de uma série (um grupo).
+	 * @return true se for um cluster simples
+	 */
 	public boolean isClusterSimples(){
 		return (this.cluster1 == null);
 	}
 	
+	/**
+	 * Cria um cluster simples através de uma amostra de série temporal
+	 * @param id Identificação do cluster
+	 * @param amostra Amostra de série temporal
+	 */
 	public Cluster(int id, Amostra amostra){
 		this.id = id;
 		this.amostras = new Amostra[1];
@@ -29,6 +44,13 @@ public class Cluster {
 //		}
 //	}
 	
+	/**
+	 * Cria um cluster que agrupa dois outros clusters
+	 * @param id Identificação do cluster
+	 * @param cluster1 Cluster a ser agrupado
+	 * @param cluster2 Cluster a ser agrupado
+	 * @param distanciaEntreClusters Distancia euclidiana entre os dois clusters
+	 */
 	public Cluster(int id, Cluster cluster1, Cluster cluster2, double distanciaEntreClusters){
 		
 		this.id = id;
