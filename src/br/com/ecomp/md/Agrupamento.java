@@ -42,7 +42,7 @@ public class Agrupamento {
 
 		for(int i = 0 ; i < c1.amostras.length ; ++i){
 			for(int j = 0 ; j < c2.amostras.length ; ++j){
-				
+
 				if(!c1.amostras[i].equals(c2.amostras[j])){
 
 					double distAmostras = this.distanciaEuclidiana(c1.amostras[i],c2.amostras[j]);
@@ -87,7 +87,7 @@ public class Agrupamento {
 		}
 
 		resultado[0] = new Cluster(id, clusters[iProximo],clusters[jProximo],menorDistancia);
-		System.out.println("Agrupou em "+id+" os cluster: "+clusters[iProximo].id + " e " +clusters[jProximo].id);
+		//System.out.println("Agrupou em "+id+" os cluster: "+clusters[iProximo].id + " e " +clusters[jProximo].id);
 
 		for(int i = 1 , j = 0; i < resultado.length ; ++j){
 			if(j != iProximo && j != jProximo){
@@ -120,7 +120,7 @@ public class Agrupamento {
 
 		return clustersMaisProximos[0];
 	}
-	
+
 	/**
 	 * Recebe um array de amostras de séries temporais agrupa todas em N Clusters.
 	 * @param amostras Amostras de séries temporais
@@ -137,7 +137,7 @@ public class Agrupamento {
 
 		Cluster[] clustersMaisProximos = this.agruparClusterMaisProximo(id, clustersIniciais);
 		while(clustersMaisProximos.length > quantidadeClusters){
-			//System.out.println("Faltam " + clustersMaisProximos.length + " clusters");
+			System.out.println("Faltam " + (clustersMaisProximos.length - quantidadeClusters)+ " clusters");
 			clustersMaisProximos = this.agruparClusterMaisProximo(++id, clustersMaisProximos);
 		}
 
@@ -146,6 +146,8 @@ public class Agrupamento {
 
 	public static void main(String[] args) throws IOException {
 
+		long tIni = System.currentTimeMillis();
+		
 		File f = new File("base_dados/synthetic_control.data");
 		FileReader fr = new FileReader(f);
 		BufferedReader br = new BufferedReader(fr);
@@ -169,9 +171,31 @@ public class Agrupamento {
 		}
 
 		Agrupamento ag = new Agrupamento();
-		Cluster mestre = ag.agrupar(amostras);
+		Cluster[] clusters = ag.agrupar(amostras,10);
 
-		System.out.println("fim "+ mestre.id);
+		mostraResultado(clusters);
+
+		long tFim = System.currentTimeMillis();
+		System.out.println("\nDemorou "+(tFim - tIni)/60000.0+" minutos");
+	}
+
+	/**
+	 * Método que mostra o resultado do agrupamento dos clusters
+	 * @param clusters
+	 */
+	public static void mostraResultado(Cluster[] clusters){
+
+		System.out.println("\n\n");
+		for(int i = 0 ; i < clusters.length ; ++i){
+			System.out.println("\nO cluster "+i+" agrupou as amostras:");
+			for(int j = 0 ; j < clusters[i].amostras.length ; ++j){
+				if((j != 0) && (j % 12 == 0)){
+					System.out.println("");
+				}
+				System.out.print(clusters[i].amostras[j].id + "\t");
+			}
+			System.out.println("");
+		}
 
 	}
 
